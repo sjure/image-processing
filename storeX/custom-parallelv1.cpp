@@ -91,13 +91,13 @@ Image applyFilter(Image &image, Matrix &filter){
     for (d=0 ; d<3 ; d++) {
         for (i=0 ; i<newImageHeight ; i++) {
             for (j=0 ; j<newImageWidth ; j++) {
+                x = newImage[d][i][j];
                 for (h=i ; h<i+filterHeight ; h++) {
-                    x = newImage[d][i][j];
                     for (w=j ; w<j+filterWidth ; w++) {
                         x += filter[h-i][w-j]*image[d][h][w];
                     }
-                    newImage[d][i][j] = x;
                 }
+                newImage[d][i][j] = x;
             }
         }
     }
