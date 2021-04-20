@@ -158,16 +158,7 @@ Image applyFilter(Image &image, Matrix &filter){
         }
         Matrix filter = lowPass(10, 10, 50.0);
         Image newPartImage(3, Matrix(slices[rank], Array(newImageWidth)));
-        int sum = 0;
-        for (d=0;d<3;d++) {
-            for (i=0 ; i< slices[rank] ; i++) {
-                for (j=0 ; j<newImageWidth ; j++) {
-                    sum +=partImage[d][i][j];
-                }
-            }
-        }
-        std::cout << "sum: " << sum << " " << std::endl;
-        int x;
+        int sum,x;
         sum=0;
         for (d=0 ; d<3 ; d++) {
             for (i=0 ; i< slices[rank] ; i++) {
