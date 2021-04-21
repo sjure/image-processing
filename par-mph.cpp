@@ -109,7 +109,7 @@ Image applyFilter(Image &image, Matrix &filter){
 
 
 
-    
+    /*
     if (rank == 0){
         std::cout << "newImageWidth: " << newImageWidth<< " " << std::endl;
         std::cout << "newImageHeight: " << newImageHeight<< " " << std::endl;
@@ -120,7 +120,7 @@ Image applyFilter(Image &image, Matrix &filter){
         {
             std::cout << "slice: " <<slices[i] << std::endl;
         }
-    }
+    }*/
     
     tag = 100;
     int finalHeight,firstHeight;
@@ -144,7 +144,7 @@ Image applyFilter(Image &image, Matrix &filter){
             firstHeight += slices[n];
         }
     } else {
-        std::cout << "rank: " << rank<< " " << std::endl;
+        //std::cout << "rank: " << rank<< " " << std::endl;
         Image partImage(3, Matrix(slices[rank] + filterHeight+100, Array(newImageWidth)));
         for (int d = 0; d < 3; d++){
                 if (rank == size-1){
@@ -174,8 +174,8 @@ Image applyFilter(Image &image, Matrix &filter){
                 }
             }
         }
-        std::cout << "sum2: " << sum << " " << std::endl;
-        std::cout << "rank_finished_loop: " << rank<< " " << std::endl;
+        //std::cout << "sum2: " << sum << " " << std::endl;
+        //std::cout << "rank_finished_loop: " << rank<< " " << std::endl;
         for (int d = 0; d < 3; d++){
             for (int i = 0; i < slices[rank]; i++){
                 rc = MPI_Send(&newPartImage[d][i][0], newImageWidth, MPI_DOUBLE, 0, tag, MPI_COMM_WORLD);
@@ -185,11 +185,11 @@ Image applyFilter(Image &image, Matrix &filter){
     if (rank == 0){
         firstHeight=0;
         finalHeight=0;
-        std::cout << "rank_recv: " << rank << " " << std::endl;
+        //std::cout << "rank_recv: " << rank << " " << std::endl;
         for(int n = 1; n < size; n++){
             finalHeight += slices[n];
 
-            std::cout << "rank_send: " << n << " " << std::endl;
+            //std::cout << "rank_send: " << n << " " << std::endl;
 
             for (int d = 0; d < 3; d++){
                 for (int i = firstHeight; i < finalHeight; i++){
@@ -197,7 +197,7 @@ Image applyFilter(Image &image, Matrix &filter){
                 }
             }
             firstHeight += slices[n];
-            std::cout << "rank_recv: " << n << " " << std::endl;
+            //std::cout << "rank_recv: " << n << " " << std::endl;
         }
     }
 
